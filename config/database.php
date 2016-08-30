@@ -4,13 +4,6 @@ return [
     'fetch' => PDO::FETCH_OBJ,
     'default' => env('DB_CONNECTION', 'mysql'),
     'connections' => [
-
-        'sqlite' => [
-            'driver' => 'sqlite',
-            'database' => env('DB_DATABASE', database_path('database.sqlite')),
-            'prefix' => '',
-        ],
-
         'mysql' => [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
@@ -23,6 +16,14 @@ return [
             'prefix' => '',
             'strict' => true,
             'engine' => null,
+        ],
+        'testing' => [
+            'driver'    => 'sqlite',
+            'database'  => ':memory:',
+            'prefix'    => '',
+            'options'   => [
+                PDO::ATTR_PERSISTENT => true,
+            ],
         ],
     ],
 
