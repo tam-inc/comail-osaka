@@ -19,7 +19,7 @@ class CreateRiceTable extends Migration
             $table->string('name', 100);
             $table->string('email', 255);
             $table->decimal('volume', 3, 1);
-            $table->string('comment', 255);
+            $table->string('comment', 255)->nullable();
             $table->boolean('ricer')->index();
             $table->timestamps();
         });
