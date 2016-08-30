@@ -11,13 +11,14 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(App\Rice::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
         'name' => $faker->name,
+        'date' => $faker->dateTimeThisYear,
         'email' => $faker->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'ricer' => false,
+        'volume' => $faker->randomElement([0.3, 0.5, 0.7, 1.0]),
     ];
 });
