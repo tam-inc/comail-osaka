@@ -15,16 +15,24 @@ class Rice extends Model
 
 
     /**
+     * 日付を返す (nullなら本日の日付に変換)
+     * @param $date
+     * @return string
+     */
+    private function date($date)
+    {
+        return $date ?? Carbon::today()->toDateString();
+    }
+
+    /**
      * 本日の担当を返す
      * @param null $date
      * @return mixed
      */
     public function getRicer($date = null)
     {
-        $date = $date ?? Carbon::today()->toDateString();
-
         return $this
-            ->where('date', $date)
+            ->where('date', $this->date($date))
             ->where('ricer', '=', true)
             ->first();
     }
@@ -36,7 +44,7 @@ class Rice extends Model
      */
     public function isSelected($date = null)
     {
-        return ($this->getRicer($date) != null);
+        return ($this->getRicer($this->date($date)) != null);
     }
 
     /**
@@ -46,10 +54,8 @@ class Rice extends Model
      */
     public function getTodayMembers($date = null)
     {
-        $date = $date ?? Carbon::today()->toDateString();
-
         return $this
-            ->where('date', $date)
+            ->where('date', $this->date($date))
             ->where('volume', '>', 0)
             ->orderBy('ricer', 'desc')
             ->inRandomOrder()
@@ -63,10 +69,8 @@ class Rice extends Model
      */
     public function getVolume($date = null)
     {
-        $date = $date ?? Carbon::today()->toDateString();
-
         return $this
-            ->where('date', $date)
+            ->where('date', $this->date($date))
             ->where('volume', '>', 0)
             ->sum('volume');
     }
@@ -86,10 +90,12 @@ class Rice extends Model
 
     /**
      * 担当者をえらぶ
+     * @param null $date
+     * @return bool
      */
     public function pickup($date = null)
     {
-        $date = $date ?? Carbon::today()->toDateString();
+        $date = $this->date($date);
 
         // 本日の対象者 (過去7日間で担当の少ない人を選ぶ)
         $ricer = DB::table($this->table)
@@ -97,7 +103,7 @@ class Rice extends Model
             ->leftJoin('rice as rice2', function($join) use ($date) {
 
                 // join: 過去7日間で担当した人を抽出
-                $fromDate = Carbon::parse('-7days')->toDateString();
+                $fromDate = Carbon::parse($date)->addDays(-7)->toDateString();
                 $join
                     ->on('rice.email', '=', 'rice2.email')
                     ->where('rice2.date', '>=', $fromDate)
@@ -115,5 +121,16 @@ class Rice extends Model
         }
 
         return $ricer;
+    }
+
+    /**
+     * 指定日分のデータを消しておく
+     * @param null $date
+     */
+    public function removeToday($date = null)
+    {
+        $this
+            ->where('date', $this->date($date))
+            ->delete();
     }
 }
