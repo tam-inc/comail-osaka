@@ -26,7 +26,15 @@ class SpreadSheet
         $csv = Reader::createFromString($csvText);
 
         $data = $csv->setOffset(2)->fetchAll(function($row) {
-            return array_combine($this->keys, array_slice($row, 0, 6));
+            return [
+                'date' => $row[0],
+                'name' => $row[1],
+                'email' => $row[2],
+                'volume' => (empty($row[4])) ? 0 : $row[4],
+                'comment' => $row[5],
+                'ricer' => false,
+            ];
+            return $a;
         });
 
         return $data;
