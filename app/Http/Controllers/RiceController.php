@@ -22,8 +22,6 @@ class RiceController extends Controller
      */
     public function pickup()
     {
-        Carbon::setTestNow(Carbon::createFromDate(2014, 6, 16));
-
         if ($this->Rice->isSelected()) {
             Log::debug('ピックアップ済み');
             return '0';
