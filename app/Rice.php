@@ -3,6 +3,7 @@
 namespace App;
 
 use DB;
+use Log;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -91,15 +92,21 @@ class Rice extends Model
     /**
      * 担当者をえらぶ
      * @param null $date
-     * @return bool
+     * @return string | bool
      */
     public function pickup($date = null)
     {
         $date = $this->date($date);
 
+        // 本日炊く必要があるか？
+        if ($this->getVolume($date) == 0) {
+            Log::debug('no volume');
+            return false;
+        }
+
         // 本日の対象者 (過去7日間で担当の少ない人を選ぶ)
         $ricer = DB::table($this->table)
-            ->select(DB::raw('rice.*, count(rice2.id) as cnt'))
+            ->select(DB::raw('rice.email, count(rice2.id) as cnt'))
             ->leftJoin('rice as rice2', function($join) use ($date) {
 
                 // join: 過去7日間で担当した人を抽出
@@ -120,8 +127,32 @@ class Rice extends Model
             return false;
         }
 
+        Log::debug("ricer: {$ricer->email}");
+
+        return $ricer->email;
+    }
+
+    /**
+     * ライサーをセットする
+     */
+    public function setRicer($email, $date = null)
+    {
+        $date = $this->date($date);
+
+        $ricer = $this
+            ->where('email', $email)
+            ->where('date', $date)
+            ->first();
+        if (empty($ricer)) {
+            return false;
+        }
+
+        $ricer->ricer = true;
+        $ricer->save();
+
         return $ricer;
     }
+
 
     /**
      * 指定日分のデータを消しておく
