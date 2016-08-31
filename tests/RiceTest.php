@@ -143,7 +143,7 @@ class RiceTest extends TestCase
             factory(Rice::class)->create($a);
         }
 
-        $this->assertEquals($this->Rice->pickup()->email, 'A');
+        $this->assertEquals($this->Rice->pickup(), 'A');
 
 
         // Aが担当多いのでBが本日の担当に
@@ -164,7 +164,7 @@ class RiceTest extends TestCase
             factory(Rice::class)->create($a);
         }
 
-        $this->assertEquals($this->Rice->pickup()->email, 'B');
+        $this->assertEquals($this->Rice->pickup(), 'B');
 
 
         // Bが担当多いけど7日以上前なので、Bが本日の担当に
@@ -185,6 +185,6 @@ class RiceTest extends TestCase
             factory(Rice::class)->create($a);
         }
 
-        $this->assertEquals($this->Rice->pickup()->email, 'B');
+        $this->assertEquals($this->Rice->pickup(), 'B');
     }
 }
