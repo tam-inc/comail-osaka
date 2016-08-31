@@ -33,6 +33,7 @@ class SpreadSheet
                 'volume' => (empty($row[4])) ? 0 : $row[4],
                 'comment' => $row[5],
                 'ricer' => false,
+                'created_at' => Carbon::now()->toDateTimeString(),
             ];
             return $a;
         });
