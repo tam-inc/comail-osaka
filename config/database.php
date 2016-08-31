@@ -1,16 +1,18 @@
 <?php
 
+$dbInfo = parse_url(env('DB_URL'));
+
 return [
     'fetch' => PDO::FETCH_OBJ,
     'default' => env('DB_CONNECTION', 'mysql'),
     'connections' => [
         'mysql' => [
             'driver' => 'mysql',
-            'host' => env('DB_HOST', 'localhost'),
-            'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', ''),
-            'username' => env('DB_USERNAME', ''),
-            'password' => env('DB_PASSWORD', ''),
+            'host' => $dbInfo['host'],
+            'port' => $dbInfo['port'],
+            'database' => substr($dbInfo['path'], 1),
+            'username' => $dbInfo['user'],
+            'password' => $dbInfo['pass'],
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',
