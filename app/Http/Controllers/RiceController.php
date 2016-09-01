@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 use App\Rice;
 use App\SpreadSheet;
-use Log;
 use Carbon\Carbon;
 
 class RiceController extends Controller

@@ -12,7 +12,6 @@
 */
 
 Route::get('/', function () {
-    Log::useFiles('php://stderr');
     Log::info('info');
     return view('welcome');
 });
