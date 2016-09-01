@@ -16,6 +16,18 @@ class RiceController extends Controller
     }
 
     /**
+     * cronから実行、11時台ならピックアップする
+     * @return string
+     */
+    public function pickup_cron()
+    {
+        if (Carbon::now()->hour == 11) {
+            return $this->pickup();
+        }
+    }
+
+
+    /**
      * ライサーを決めて通知する
      * 毎日 11:50 実施
      * @return string
@@ -55,6 +67,16 @@ class RiceController extends Controller
 //        $this->Slack->send($ricer);
 //        $this->Mail->send($ricer);
 
+        return '1';
+    }
+
+    /**
+     * きょうのライサーをリセット
+     * @return string
+     */
+    public function reset()
+    {
+        $this->Rice->removeToday();
         return '1';
     }
 }

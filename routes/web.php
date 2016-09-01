@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::get('/pickup', 'RiceController@pickup');
+Route::get('/pickup_cron', 'RiceController@pickup_cron');
+Route::get('/reset', 'RiceController@reset');
