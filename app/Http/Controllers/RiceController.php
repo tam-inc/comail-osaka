@@ -35,7 +35,7 @@ class RiceController extends Controller
     public function pickup()
     {
         if ($this->Rice->isSelected()) {
-            Log::debug('ピックアップ済み');
+            Log::warning('ピックアップ済み');
             return '0';
         }
 
@@ -44,7 +44,7 @@ class RiceController extends Controller
         $todayMembers = $S->getSpreadSheetByDate();
 
         if (empty($todayMembers)) {
-            Log::debug('no member');
+            Log::info('no member today');
             return '0';
         }
 
@@ -56,7 +56,7 @@ class RiceController extends Controller
         // ピックアップ
         $ricer_email = $this->Rice->pickup();
         if (empty($ricer_email)) {
-            Log::debug('pickup failure');
+            Log::error('pickup failure');
             return '0';
         }
 

@@ -100,7 +100,7 @@ class Rice extends Model
 
         // 本日炊く必要があるか？
         if ($this->getVolume($date) == 0) {
-            Log::debug('no volume');
+            Log::info('no volume');
             return false;
         }
 
@@ -127,7 +127,7 @@ class Rice extends Model
             return false;
         }
 
-        Log::debug("ricer: {$ricer->email}");
+        Log::info("ricer: {$ricer->email}");
 
         return $ricer->email;
     }
