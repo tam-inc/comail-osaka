@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Rice;
 use App\SpreadSheet;
 use Carbon\Carbon;
+use Log;
 
 class RiceController extends Controller
 {
@@ -13,18 +14,6 @@ class RiceController extends Controller
     {
         $this->Rice = new Rice();
     }
-
-    /**
-     * cronから実行、11時台ならピックアップする
-     * @return string
-     */
-    public function pickup_cron()
-    {
-        if (Carbon::now()->hour == 11) {
-            return $this->pickup();
-        }
-    }
-
 
     /**
      * ライサーを決めて通知する

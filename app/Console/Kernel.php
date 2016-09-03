@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use Carbon\Carbon;
+use Log;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +26,29 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        // reminder (10:30)
+        $schedule->call(function () {
+            Log::info('reminder'); //todo
+        })->weekdays()->when(function() {
+            return $this->checkCronTime(10, 30);
+        });
+
+        // pickup (11:45)
+        $schedule->call(function () {
+            file_get_contents('https://tamrice.herokuapp.com/pickup');
+        })->weekdays()->when(function() {
+            return $this->checkCronTime(11, 45);
+        });
+    }
+
+    protected function checkCronTime($h, $m)
+    {
+        $cron_span = 10;
+
+        $cron_time = Carbon::now()->setTime($h, $m);
+        $diff = $cron_time->diffInMinutes(Carbon::now(), false);
+
+        return ($diff >= 0 && $diff < $cron_span);
     }
 
     /**

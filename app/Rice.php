@@ -2,6 +2,8 @@
 
 namespace App;
 
+use DB;
+use Log;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
