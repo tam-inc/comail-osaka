@@ -17,13 +17,8 @@ Route::get('/', function () {
 });
 
 Route::get('/mail', function () {
-    $body = "本文\nテキストテキスト";
-    Mail::raw($body, function($message)
-    {
-        $message->to('matsuo@tam-tam.co.jp')->subject('コメール');
-    });
-
-    Log::info('mail sent');
+    // email sample
+    App\Notify::mail('matsuo@tam-tam.co.jp', 'なまえ', 1.5);
 });
 
 Route::get('/pickup', 'RiceController@pickup');

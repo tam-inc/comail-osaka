@@ -1,11 +1,12 @@
 <?php
 
 return [
-    'driver' => 'smtp',
-    'host' => 'smtp.sendgrid.net',
-    'port' => 587,
+    'driver' => env('MAIL_DRIVER', 'smtp'),
+    'host' => env('MAIL_HOST', 'smtp.sendgrid.net'),
+    'port' => env('MAIL_PORT', 587),
     'from' => ['address' => 'tamdevelop@gmail.com', 'name' => '大阪コメール'],
-    'encryption' => 'tls',
-    'username' => env('SENDGRID_USERNAME'),
-    'password' => env('SENDGRID_PASSWORD'),
+    'encryption' => env('MAIL_ENCRYPTION', 'tls'),
+    'username' => env('SENDGRID_USERNAME', null),
+    'password' => env('SENDGRID_PASSWORD', null),
+    'sendmail' => '/usr/sbin/sendmail -bs',
 ];

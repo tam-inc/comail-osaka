@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Rice;
 use App\SpreadSheet;
+use App\Notify;
 use Carbon\Carbon;
 use Log;
 
@@ -51,9 +52,14 @@ class RiceController extends Controller
         // ピックアップデータを反映
         $ricer = $this->Rice->setRicer($ricer_email);
 
-        // Slack と メールで通知
+        // 分量を取得
+        $volume = $this->Rice->getVolume();
+
+        // Slack通知
 //        $this->Slack->send($ricer);
-//        $this->Mail->send($ricer);
+
+        // メール通知
+        Notify::mail($ricer->email, $ricer->name, $volume);
 
         return '1';
     }
