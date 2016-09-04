@@ -21,7 +21,7 @@ class RiceController extends Controller
      * 毎日 11:50 実施
      * @return string
      */
-    public function pickup()
+    public function pickup_cron()
     {
         if ($this->Rice->isSelected()) {
             Log::warning('ピックアップ済み');
@@ -33,7 +33,7 @@ class RiceController extends Controller
         $todayMembers = $S->getSpreadSheetByDate();
 
         if (empty($todayMembers)) {
-            Log::info('no member today');
+            Log::info('本日希望者なし');
             return '0';
         }
 
@@ -45,7 +45,7 @@ class RiceController extends Controller
         // ピックアップ
         $ricer_email = $this->Rice->pickup();
         if (empty($ricer_email)) {
-            Log::error('pickup failure');
+            Log::error('ピックアップエラー');
             return '0';
         }
 
@@ -61,6 +61,7 @@ class RiceController extends Controller
         // メール通知
         Notify::mail($ricer->email, $ricer->name, $volume);
 
+        Log::info("ピックアップ: {$ricer->name}");
         return '1';
     }
 
@@ -71,6 +72,7 @@ class RiceController extends Controller
     public function reset()
     {
         $this->Rice->removeToday();
+        Log::info("ピックアップ reset");
         return '1';
     }
 }

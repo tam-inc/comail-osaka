@@ -35,7 +35,7 @@ class Kernel extends ConsoleKernel
 
         // pickup (11:45)
         $schedule->call(function () {
-            file_get_contents('https://tamrice.herokuapp.com/pickup');
+            file_get_contents('https://tamrice.herokuapp.com/pickup_cron');
         })->weekdays()->when(function() {
             return $this->checkCronTime(11, 45);
         });

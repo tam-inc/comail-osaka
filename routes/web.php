@@ -33,6 +33,5 @@ Route::get('/mail', function () {
     App\Notify::mail('matsuo@tam-tam.co.jp', 'なまえ', 1.5);
 });
 
-Route::get('/pickup', 'RiceController@pickup');
 Route::get('/pickup_cron', 'RiceController@pickup_cron');
 Route::get('/reset', 'RiceController@reset');
