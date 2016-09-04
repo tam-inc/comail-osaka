@@ -12,8 +12,20 @@
 */
 
 Route::get('/', function () {
-    Log::info('info');
-    return view('welcome');
+    // basic auth
+    switch (env('APP_ENV') == 'production') {
+        case !isset($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW']):
+        case $_SERVER['PHP_AUTH_USER'] !== env('AUTH_USER'):
+        case $_SERVER['PHP_AUTH_PW']   !== env('AUTH_PW'):
+            header('WWW-Authenticate: Basic realm="Enter username and password."');
+            header('Content-Type: text/plain; charset=utf-8');
+            die('401 Unauthorized.');
+    }
+
+    $rice = new App\Rice();
+    return view('top', [
+        'ricers' => $rice->getResult(),
+    ]);
 });
 
 Route::get('/mail', function () {

@@ -83,9 +83,9 @@ class Rice extends Model
     public function getResult()
     {
         return $this
-            ->where('date', '>=', Carbon::parse('-20days')->toDateString())
             ->where('ricer', true)
             ->orderBy('date', 'desc')
+            ->take(20)
             ->pluck('name', 'date');
     }
 

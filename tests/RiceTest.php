@@ -13,7 +13,7 @@ class RiceTest extends TestCase
     public $Rice;
 
     /**
-     * @return array
+     * @return void
      */
     public function setUp()
     {
@@ -69,10 +69,6 @@ class RiceTest extends TestCase
             ],
             [
                 'date'  => Carbon::parse('-20days')->toDateString(),
-                'ricer' => true,
-            ],
-            [
-                'date'  => Carbon::parse('-21days')->toDateString(),
                 'ricer' => true,
             ],
         ];
