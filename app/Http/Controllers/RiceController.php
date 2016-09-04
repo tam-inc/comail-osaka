@@ -5,6 +5,7 @@ use App\Rice;
 use App\SpreadSheet;
 use App\Notify;
 use Carbon\Carbon;
+use Slack;
 use Log;
 
 class RiceController extends Controller
@@ -56,7 +57,7 @@ class RiceController extends Controller
         $volume = $this->Rice->getVolume();
 
         // Slack通知
-//        $this->Slack->send($ricer);
+        Slack::send("本日の米炊き当番は 【{$ricer->name}】に決定！！ (分量 {$volume}合)");
 
         // メール通知
         Notify::mail($ricer->email, $ricer->name, $volume);

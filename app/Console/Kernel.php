@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Slack;
 use Carbon\Carbon;
 use Log;
 use Illuminate\Console\Scheduling\Schedule;
@@ -28,7 +29,7 @@ class Kernel extends ConsoleKernel
     {
         // reminder (10:30)
         $schedule->call(function () {
-            Log::info('reminder'); //todo
+            Slack::send('[大阪] 今日お米たべたい人〜？ :rice: http://tinyurl.com/tamrice (11:40 までに書いてね)');
         })->weekdays()->when(function() {
             return $this->checkCronTime(10, 30);
         });

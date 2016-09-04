@@ -30,10 +30,12 @@ Route::get('/', function () {
     ]);
 });
 
+
 Route::get('/mail', function () {
     // email sample
     App\Notify::mail('matsuo@tam-tam.co.jp', 'なまえ', 1.5);
 });
+
 
 Route::get('/pickup_cron', 'RiceController@pickup_cron');
 Route::get('/reset', 'RiceController@reset');
