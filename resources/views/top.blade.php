@@ -20,9 +20,12 @@
         </tr>
         </thead>
         <tbody>
-        @if (true)
+        <?php
+        $today = Carbon\Carbon::now()->toDateString();
+        ?>
+        @if (empty($ricers[$today]))
             <tr>
-                <td>{{ Carbon\Carbon::now()->toDateString() }}</td>
+                <td>{{ $today }}</td>
                 <td>????????</td>
             </tr>
         @endif
