@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>大阪コメール</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/marx/2.0.4/marx.min.css">
+    <style>
+        h2, h3 { margin-top: 1.5em; }
+    </style>
 </head>
 <body>
 <main>
@@ -38,7 +41,9 @@
         @endforeach
         </tbody>
     </table>
-</main>
 
+    <h3>お米シートはこちら</h3>
+    <p><a href="http://tinyurl.com/tamrice">http://tinyurl.com/tamrice</a></p>
+</main>
 </body>
 </html>
