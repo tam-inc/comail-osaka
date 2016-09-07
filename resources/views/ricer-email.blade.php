@@ -10,4 +10,4 @@
 
 --
 大阪コメール
-http://tamrice.herokuapp.jp/
+http://tamrice.herokuapp.com/

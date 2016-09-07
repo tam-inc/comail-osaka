@@ -23,6 +23,7 @@ class Notify
             ['text' => 'ricer-email'],
             ['name' => $name, 'volume' => $volume],
             function($message) {
+                // todo
                 $message
                     ->to('matsuo@tam-tam.co.jp')
                     ->subject('【コメール】本日の米炊き当番に決定！！');
