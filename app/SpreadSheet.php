@@ -35,7 +35,6 @@ class SpreadSheet
                 'ricer' => false,
                 'created_at' => Carbon::now()->toDateTimeString(),
             ];
-            return $a;
         });
 
         return $data;

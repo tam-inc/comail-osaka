@@ -29,14 +29,14 @@ class Kernel extends ConsoleKernel
     {
         // reminder (10:30)
         $schedule->call(function () {
-            Slack::send('[大阪] 今日お米たべたい人〜？ :rice: http://tinyurl.com/tamrice (11:40 までに書いてね)');
+            Slack::send(env('SLACK_REMINDER_TEXT'));
         })->weekdays()->when(function() {
             return $this->checkCronTime(10, 30);
         });
 
         // pickup (11:45)
         $schedule->call(function () {
-            file_get_contents('https://tamrice.herokuapp.com/pickup_cron');
+            file_get_contents(env('APP_URL') . 'pickup_cron');
         })->weekdays()->when(function() {
             return $this->checkCronTime(11, 45);
         });

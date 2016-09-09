@@ -32,7 +32,7 @@ Route::get('/', function () {
 
 
 Route::get('/mail', function () {
-    // email sample
+    // email test
     App\Notify::mail('matsuo@tam-tam.co.jp', 'なまえ', 1.5);
 });
 

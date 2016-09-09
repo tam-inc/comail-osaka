@@ -1,6 +1,6 @@
 <?php
 
-$dbInfo = parse_url(env('DB_URL'));
+$dbInfo = parse_url(env('CLEARDB_DATABASE_URL', env('DB_URL')));
 
 return [
     'fetch' => PDO::FETCH_OBJ,

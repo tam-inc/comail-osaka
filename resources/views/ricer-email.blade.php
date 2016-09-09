@@ -9,5 +9,5 @@
 どうぞよろしくお願いいたします！！！
 
 --
-大阪コメール
-http://tamrice.herokuapp.com/
+コメール
+{{ env('APP_URL') }}
