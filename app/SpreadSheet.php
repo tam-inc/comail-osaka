@@ -25,7 +25,7 @@ class SpreadSheet
         $csvText = file_get_contents(env('RICE_SHEET_URL_CSV'));
         $csv = Reader::createFromString($csvText);
 
-        $data = $csv->setOffset(2)->fetchAll(function($row) {
+        $data = $csv->setOffset(1)->fetchAll(function($row) {
             return [
                 'date' => $row[0],
                 'name' => $row[1],
