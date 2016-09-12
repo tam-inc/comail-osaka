@@ -31,9 +31,15 @@ Route::get('/', function () {
 });
 
 
-Route::get('/mail', function () {
+Route::get('/mail_test', function () {
     // email test
     App\Notify::mail('matsuo@tam-tam.co.jp', 'なまえ', 1.5);
+});
+
+
+Route::get('/slack_test', function () {
+    // slack test
+    Slack::send('テストです');
 });
 
 
