@@ -22,10 +22,9 @@ class Notify
         Mail::send(
             ['text' => 'ricer-email'],
             ['name' => $name, 'volume' => $volume],
-            function($message) {
-                // todo
+            function($message) use ($to) {
                 $message
-                    ->to('matsuo@tam-tam.co.jp')
+                    ->to($to)
                     ->subject('【コメール】本日の米炊き当番に決定！！');
 
                 Log::info('mail sent');
