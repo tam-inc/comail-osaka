@@ -31,6 +31,9 @@ class Kernel extends ConsoleKernel
         $schedule->call(function () {
             Slack::send(env('SLACK_REMINDER_TEXT'));
         })->weekdays()->when(function() {
+            if (! env('SLACK_REMINDER_TEXT')) {
+                return false;
+            }
             return $this->checkCronTime(10, 30);
         });
 
