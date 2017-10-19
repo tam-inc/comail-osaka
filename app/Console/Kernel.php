@@ -50,7 +50,7 @@ class Kernel extends ConsoleKernel
             file_get_contents(env('APP_URL') . 'cleanup_cron');
         })->weekdays()->when(function () {
             Log::debug(env('APP_URL') . 'claenup_cron');
-            return $this->checkCronTime(17,30);
+            return $this->checkCronTime(16,30);
         });
     }
 
