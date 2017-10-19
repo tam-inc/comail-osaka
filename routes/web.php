@@ -45,3 +45,4 @@ Route::get('/slack_test', function () {
 
 Route::get('/pickup_cron', 'RiceController@pickup_cron');
 Route::get('/reset', 'RiceController@reset');
+Route::get('/cleanup_cron', 'RiceController@cleanup_cron');

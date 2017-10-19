@@ -75,4 +75,20 @@ class RiceController extends Controller
         Log::info("ピックアップ reset");
         return '1';
     }
+
+
+    /**
+     * ごちそうさま＆お片付けありがとうメールを送信
+     */
+    public function cleanup_cron()
+    {
+        //今日の担当者を取得
+        $todayRicer = $this->Rice->getRicer();
+
+        //担当者にメール投げる
+        Notify::cleanupMail($todayRicer->email,$todayRicer->name);
+        Log::info("お片付けリマインダ: {$todayRicer->name}");
+        return '1';
+    }
+
 }
