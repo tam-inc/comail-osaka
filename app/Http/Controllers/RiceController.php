@@ -85,6 +85,13 @@ class RiceController extends Controller
         //今日の担当者を取得
         $todayRicer = $this->Rice->getRicer();
 
+
+        //希望者がいなかった日は何もしない
+        if (empty($todayRicer)) {
+            Log::info('本日希望者なし');
+            return '0';
+        }
+
         //担当者にメール投げる
         Notify::cleanupMail($todayRicer->email,$todayRicer->name);
         Log::info("お片付けリマインダ: {$todayRicer->name}");
