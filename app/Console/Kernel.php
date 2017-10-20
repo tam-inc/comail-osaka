@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
         //
     ];
 
+
     /**
      * Define the application's command schedule.
      *
@@ -42,6 +43,14 @@ class Kernel extends ConsoleKernel
             file_get_contents(env('APP_URL') . 'pickup_cron');
         })->weekdays()->when(function() {
             return $this->checkCronTime(11, 45);
+        });
+
+        // clean (16:30)
+        $schedule->call(function () {
+            file_get_contents(env('APP_URL') . 'cleanup_cron');
+        })->weekdays()->when(function () {
+            Log::debug(env('APP_URL') . 'claenup_cron');
+            return $this->checkCronTime(16,30);
         });
     }
 

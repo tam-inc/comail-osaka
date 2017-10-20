@@ -31,4 +31,19 @@ class Notify
             }
         );
     }
+
+    static function cleanupMail($to, $name)
+    {
+        Mail::send(
+            ['text' => 'ricerCleanUp-email'],
+            ['name' => $name],
+            function ($message) use($to) {
+                $message
+                    ->to($to)
+                    ->subject('【コメール】ごちそうさまでした、お片付けありがとうございます！！');
+
+                Log::info('mail sent');
+            }
+        );
+    }
 }
